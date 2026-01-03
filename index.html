@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sandeep Singh - Lead SRE | Kubernetes Platform Architect</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #667eea;
+      --secondary: #764ba2;
+      --accent: #f093fb;
+      --dark: #1a1a2e;
+      --darker: #0f0f1e;
+      --light: #eef1ff;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: var(--dark);
+      overflow-x: hidden;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Animated Background */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+      z-index: -1;
+    }
+
+    .animated-bg::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(240, 147, 251, 0.1) 0%, transparent 50%);
+      animation: float 20s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(30px, -50px) rotate(120deg); }
+      66% { transform: translate(-20px, 20px) rotate(240deg); }
+    }
+
+    /* Floating Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(102, 126, 234, 0.3);
+      border-radius: 50%;
+      animation: rise 15s infinite ease-in;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1.2rem 0;
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+    }
+
+    nav .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 3rem;
+    }
+
+    nav .logo {
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      padding: 0.5rem 0;
+      transition: all 0.3s ease;
+      position: relative;
+      font-weight: 500;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 8rem 2rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text h1 {
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero-text .gradient-text {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .hero-text .subtitle {
+      font-size: 1.8rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 1rem;
+      font-weight: 600;
+      animation: fadeInUp 1s ease 0.2s both;
+    }
+
+    .hero-text .tagline {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+      animation: fadeInUp 1s ease 0.4s both;
+    }
+
+    .typing-effect {
+      border-right: 2px solid var(--primary);
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: var(--primary); }
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease 0.6s both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 1.05rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Hero Image/Visual */
+    .hero-visual {
+      position: relative;
+      animation: fadeInRight 1s ease 0.3s both;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 20px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .hero-card:hover::before {
+      opacity: 1;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+      background: rgba(102, 126, 234, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .stat-item h3 {
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-item p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* Sections */
+    section {
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    .section-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      animation: fadeInUp 1s ease;
+    }
+
+    .section-header h2 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
+    .section-header p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* About Section */
+    #about {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+    }
+
+    .about-text strong {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: 10px;
+    }
+
+    .about-features {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+      background: rgba(102, 126, 234, 0.1);
+      transform: translateX(10px);
+      border-color: var(--primary);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .feature-content h4 {
+      color: #fff;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .feature-content p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2.5rem;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .skill-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .skill-card:hover {
+      background: rgba(102, 126, 234, 0.1);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+    }
+
+    .skill-card h3 {
+      color: #fff;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 700;
+    }
+
+    .skill-card h3 i {
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .skill-card ul {
+      list-style: none;
+    }
+
+    .skill-card li {
+      color: rgba(255, 255, 255, 0.8);
+      padding: 0.7rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.05rem;
+      transition: all 0.3s ease;
+    }
+
+    .skill-card li:hover {
+      color: #fff;
+      transform: translateX(5px);
+    }
+
+    .skill-card li::before {
+      content: '▹';
+      color: var(--primary);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    /* Experience Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 4rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 3px;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      padding-left: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -4.6rem;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+      }
+      50% {
+        box-shadow: 0 0 0 8px rgba(102, 126, 234, 0.4);
+      }
+    }
+
+    .timeline-content {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2.5rem;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      background: rgba(102, 126, 234, 0.1);
+      transform: translateX(10px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+    }
+
+    .timeline-content h3 {
+      color: #fff;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .timeline-content .company {
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .timeline-content .period {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .timeline-content .description {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .timeline-content ul {
+      list-style: none;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .timeline-content li {
+      padding: 0.6rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .timeline-content li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .project-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    .project-icon {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .project-content {
+      padding: 2rem;
+    }
+
+    .project-content h3 {
+      color: #fff;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .project-content p {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag {
+      background: rgba(102, 126, 234, 0.2);
+      color: var(--primary);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid rgba(102, 126, 234, 0.3);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .project-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .project-link:hover {
+      color: var(--accent);
+      transform: translateX(5px);
+    }
+
+    /* Contact Section */
+    #contact {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .contact-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2.5rem;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: block;
+    }
+
+    .contact-card:hover {
+      background: rgba(102, 126, 234, 0.1);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+    }
+
+    .contact-card i {
+      font-size: 3rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .contact-card h3 {
+      color: #fff;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .contact-card p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--darker);
+      border-top: 1px solid rgba(102, 126, 234, 0.1);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-link {
+      width: 50px;
+      height: 50px;
+      background: rgba(102, 126, 234, 0.1);
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .social-link:hover {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    footer p {
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0.5rem 0;
+    }
+
+    /* Scroll to Top Button */
+    .scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 999;
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .scroll-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        padding-left: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav .nav-links {
+        gap: 1rem;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+
+      .hero-text h1 {
+        font-size: 3rem;
+      }
+
+      .hero-text .subtitle {
+        font-size: 1.4rem;
+      }
+
+      .section-header h2 {
+        font-size: 2.5rem;
+      }
+
+      .skills-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg"></div>
+  
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">SS</div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Hi, I'm <span class="gradient-text">Sandeep Singh</span></h1>
+        <p class="subtitle">Lead Site Reliability Engineer</p>
+        <p class="tagline">
+          <span class="typing-effect">Building resilient cloud-native platforms at scale</span><br>
+          Kubernetes • GitOps • Multi-Cloud Architecture • DevSecOps
+        </p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn btn-primary">
+            <i class="fas fa-rocket"></i>
+            Let's Connect
+          </a>
+          <a href="#projects" class="btn btn-secondary">
+            <i class="fas fa-code"></i>
+            View My Work
+          </a>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-stats">
+            <div class="stat-item">
+              <h3>10+</h3>
+              <p>Years Experience</p>
+            </div>
+            <div class="stat-item">
+              <h3>5000+</h3>
+              <p>K8s Clusters</p>
+            </div>
+            <div class="stat-item">
+              <h3>30%</h3>
+              <p>Cost Savings</p>
+            </div>
+            <div class="stat-item">
+              <h3>100+</h3>
+              <p>Services Migrated</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>About Me</h2>
+        <p>Passionate about building resilient, scalable infrastructure that powers innovation</p>
+      </div>
+      
+      <div class="about-content">
+        <div class="about-text">
+          <p>
+            I'm a <strong>Lead Site Reliability Engineer</strong> with over 10 years of experience architecting and scaling cloud-native platforms across multi-region, multi-cloud environments.
+          </p>
+          <div class="highlight-box">
+            <strong>Current Focus:</strong> Building highly available Kubernetes platforms for Risk, Fraud Detection, and B2B infrastructure at <strong>Grab</strong>, serving millions of users across Southeast Asia.
+          </div>
+          <p>
+            I specialize in Infrastructure as Code, GitOps methodologies, and driving <strong>30%+ cost optimizations</strong> through intelligent autoscaling and resource management. My work spans across AWS, GCP, and Azure, managing 5000+ production Kubernetes clusters.
+          </p>
+          <p>
+            Beyond infrastructure, I'm passionate about observability, security compliance (PCI), and mentoring teams to adopt DevSecOps best practices.
+          </p>
+        </div>
+        
+        <div class="about-features">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-cloud"></i>
+            </div>
+            <div class="feature-content">
+              <h4>Cloud Architect</h4>
+              <p>Multi-cloud expertise across AWS, Azure & GCP with hub-spoke architectures</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-dharmachakra"></i>
+            </div>
+            <div class="feature-content">
+              <h4>K8s Platform Engineer</h4>
+              <p>Managing 5000+ clusters with advanced CNI, service mesh, and autoscaling</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-code-branch"></i>
+            </div>
+            <div class="feature-content">
+              <h4>GitOps Advocate</h4>
+              <p>Implementing ArgoCD-based continuous delivery for 100+ microservices</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="feature-content">
+              <h4>Observability Expert</h4>
+              <p>Full-stack monitoring with Prometheus, Grafana, ELK, and OpenTelemetry</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Technical Expertise</h2>
+        <p>Cutting-edge technologies and tools I work with daily</p>
+      </div>
+      
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3><i class="fas fa-dharmachakra"></i> Kubernetes & Orchestration</h3>
+          <ul>
+            <li>Amazon EKS, Azure AKS, Google GKE</li>
+            <li>Helm Charts & Cluster Management</li>
+            <li>Multi-region, Multi-tenant Platforms</li>
+            <li>Cilium CNI & Istio Service Mesh</li>
+            <li>Cluster Autoscaling & VPA/HPA</li>
+            <li>Network Policies & Security</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card">
+          <h3><i class="fas fa-code"></i> Infrastructure as Code</h3>
+          <ul>
+            <li>Terraform (Advanced)</li>
+            <li>Ansible Automation</li>
+            <li>Python & Bash Scripting</li>
+            <li>GitOps with ArgoCD</li>
+            <li>CI/CD Pipeline Engineering</li>
+            <li>Configuration Management</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card">
+          <h3><i class="fas fa-cloud"></i> Cloud Platforms</h3>
+          <ul>
+            <li>Amazon Web Services (AWS)</li>
+            <li>Microsoft Azure</li>
+            <li>Google Cloud Platform (GCP)</li>
+            <li>Multi-cloud Architectures</li>
+            <li>Cost Optimization Strategies</li>
+            <li>Cloud Migration & Modernization</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card">
+          <h3><i class="fas fa-chart-line"></i> Observability Stack</h3>
+          <ul>
+            <li>Prometheus & Alertmanager</li>
+            <li>Grafana Dashboards & Loki</li>
+            <li>ELK Stack (Elasticsearch, Logstash, Kibana)</li>
+            <li>OpenTelemetry & Distributed Tracing</li>
+            <li>Datadog & Dynatrace APM</li>
+            <li>AppDynamics Performance Monitoring</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card">
+          <h3><i class="fas fa-rocket"></i> CI/CD & DevOps</h3>
+          <ul>
+            <li>ArgoCD & Flux GitOps</li>
+            <li>Jenkins Pipeline Engineering</li>
+            <li>Blue/Green & Canary Deployments</li>
+            <li>Flagger Progressive Delivery</li>
+            <li>Docker & Container Security</li>
+            <li>Git Workflows & Automation</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card">
+          <h3><i class="fas fa-shield-alt"></i> Security & Compliance</h3>
+          <ul>
+            <li>Open Policy Agent (OPA) & Kyverno</li>
+            <li>PCI DSS Compliance</li>
+            <li>RBAC & Pod Security Policies</li>
+            <li>DevSecOps Integration</li>
+            <li>Vulnerability Scanning & Remediation</li>
+            <li>Zero Trust Architecture</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Career Journey</h2>
+        <p>Building world-class infrastructure at leading tech companies</p>
+      </div>
+      
+      <div class="timeline">
+        <!-- Grab -->
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Lead Site Reliability Engineer</h3>
+            <div class="company">
+              <i class="fas fa-building"></i>
+              Grab (GrabDefence Platform)
+            </div>
+            <span class="period">June 2024 - Present</span>
+            <p class="description">
+              <strong>Leading infrastructure for Risk, Fraud Detection, Driver/Passenger Safety, KYC, and B2B systems across Southeast Asia.</strong>
+            </p>
+            <ul>
+              <li>🚀 Architected multi-region Kubernetes on AWS EKS with Terraform IaC and Datadog observability</li>
+              <li>🔄 Built GitOps platform with ArgoCD, migrating 100+ microservices from legacy Jenkins pipelines</li>
+              <li>⚡ Designed Locust-based synthetic stress tests for performance validation under peak traffic</li>
+              <li>🤖 Implemented OpenFGA for fine-grained authorization in RAG-powered LLM systems</li>
+              <li>🌐 Deployed Cilium CNI, solving IP exhaustion with advanced networking and security policies</li>
+              <li>🎯 Enabled progressive delivery using Istio + Flagger for automated canary deployments</li>
+              <li>💾 Designed BCDR strategy with cross-region failover and automated recovery</li>
+              <li>🧠 Built GPU-accelerated Kubernetes workloads with CUDA for ML model training at scale</li>
+              <li>💰 Achieved 30% cloud cost reduction through autoscaling, VPA, and spot instance adoption</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Walmart -->
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Senior DevOps Engineer</h3>
+            <div class="company">
+              <i class="fas fa-building"></i>
+              Walmart Global Technology Services
+            </div>
+            <span class="period">June 2022 - June 2024</span>
+            <p class="description">
+              <strong>Built and scaled Walmart Cloud Native Platform (WCNP) for global eCommerce infrastructure.</strong>
+            </p>
+            <ul>
+              <li>📊 Integrated Cluster Proportional Autoscaler, saving $10K daily in cloud costs</li>
+              <li>🔧 Automated node bootstrapping and cluster lifecycle for 5000+ AKS and GKE clusters</li>
+              <li>⚙️ Boosted developer productivity with self-service tooling and optimized CI/CD</li>
+              <li>🛡️ Led PCI compliance initiatives for multi-tenant GKE environments</li>
+              <li>📈 Deployed full-stack observability with Prometheus, Grafana, and ELK Stack</li>
+              <li>💾 Implemented Velero backup/recovery with Azure Blob Storage integration</li>
+              <li>🔄 Led zero-downtime Kubernetes upgrades across 5000+ production clusters</li>
+              <li>🏗️ Acted as Lead Consultant for VM-to-container migration initiatives</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Maveric -->
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>SDE2 (DevOps Lead)</h3>
+            <div class="company">
+              <i class="fas fa-building"></i>
+              Maveric Systems
+            </div>
+            <span class="period">August 2021 - May 2022</span>
+            <ul>
+              <li>🏦 Led cloud transformation for banking clients, reducing on-premise infrastructure</li>
+              <li>🧪 Built ephemeral testing environments on GKE using Terraform automation</li>
+              <li>🔐 Developed PRP platform with DevSecOps workflows for secure tool delivery</li>
+              <li>🛡️ Established GKE security controls including workload identity and RBAC hardening</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Infosys -->
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Senior Associate Consultant DevOps</h3>
+            <div class="company">
+              <i class="fas fa-building"></i>
+              Infosys
+            </div>
+            <span class="period">April 2018 - March 2021</span>
+            <ul>
+              <li>🚨 Provided L2/L3 incident support for mission-critical Kubernetes environments</li>
+              <li>🔧 Maintained enterprise DevOps toolchain (Jenkins, Git, OpenShift)</li>
+              <li>📦 Configured CI/CD pipelines integrating SCM and build automation</li>
+              <li>🔄 Scaled Jenkins on OpenShift Container Platform with auto-healing</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Nagarro -->
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Senior Associate Technology DevOps</h3>
+            <div class="company">
+              <i class="fas fa-building"></i>
+              Nagarro Software
+            </div>
+            <span class="period">October 2015 - March 2018</span>
+            <ul>
+              <li>🔨 Developed Jenkins CI/CD pipelines for Java microservices</li>
+              <li>🐳 Built and optimized Docker images for containerized deployments</li>
+              <li>🤖 Automated infrastructure provisioning using Ansible</li>
+              <li>⚡ Supported 24/7 operations for Airtel India's Feature Delivery Platform</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects/Achievements Section -->
+  <section id="projects">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Key Projects & Achievements</h2>
+        <p>Impactful solutions that drive business results</p>
+      </div>
+      
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-dharmachakra"></i>
+          </div>
+          <div class="project-content">
+            <h3>Multi-Region K8s Platform</h3>
+            <p>
+              Architected enterprise-grade Kubernetes platform across AWS, Azure, and GCP, managing 5000+ clusters with 99.99% uptime SLA. Implemented advanced CNI with Cilium and Istio service mesh.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Kubernetes</span>
+              <span class="tag">Terraform</span>
+              <span class="tag">Multi-Cloud</span>
+              <span class="tag">Cilium</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-code-branch"></i>
+          </div>
+          <div class="project-content">
+            <h3>GitOps Transformation</h3>
+            <p>
+              Led migration of 100+ microservices from Jenkins to ArgoCD-based GitOps, reducing deployment time by 70% and enabling self-service deployments for development teams.
+            </p>
+            <div class="project-tags">
+              <span class="tag">ArgoCD</span>
+              <span class="tag">GitOps</span>
+              <span class="tag">CI/CD</span>
+              <span class="tag">Automation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-dollar-sign"></i>
+          </div>
+          <div class="project-content">
+            <h3>Cloud Cost Optimization</h3>
+            <p>
+              Implemented intelligent autoscaling with VPA, HPA, and Cluster Proportional Autoscaler. Achieved 30% cost reduction ($10K+ daily savings) through spot instances and resource right-sizing.
+            </p>
+            <div class="project-tags">
+              <span class="tag">FinOps</span>
+              <span class="tag">Autoscaling</span>
+              <span class="tag">Cost Management</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <div class="project-content">
+            <h3>GPU-Accelerated ML Platform</h3>
+            <p>
+              Built GPU-based Kubernetes workloads with CUDA for large-scale ML model training. Integrated OpenFGA for fine-grained authorization in RAG-powered LLM systems.
+            </p>
+            <div class="project-tags">
+              <span class="tag">GPU</span>
+              <span class="tag">ML/AI</span>
+              <span class="tag">CUDA</span>
+              <span class="tag">LLM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="project-content">
+            <h3>Full-Stack Observability</h3>
+            <p>
+              Deployed comprehensive monitoring stack with Prometheus, Grafana, ELK, and OpenTelemetry. Built custom dashboards and alerting reducing MTTR by 60%.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Prometheus</span>
+              <span class="tag">Grafana</span>
+              <span class="tag">ELK</span>
+              <span class="tag">OpenTelemetry</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="project-content">
+            <h3>PCI Compliance & Security</h3>
+            <p>
+              Led PCI DSS compliance initiatives for multi-tenant GKE environments. Implemented OPA policies, network security, RBAC hardening, and vulnerability scanning.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Security</span>
+              <span class="tag">Compliance</span>
+              <span class="tag">OPA</span>
+              <span class="tag">DevSecOps</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Let's Build Something Amazing</h2>
+        <p>Open to exciting opportunities, collaborations, and challenging projects</p>
+      </div>
+      
+      <div class="contact-content">
+        <div class="contact-methods">
+          <a href="mailto:Sandeepblue15@gmail.com" class="contact-card">
+            <i class="fas fa-envelope"></i>
+            <h3>Email Me</h3>
+            <p>Sandeepblue15@gmail.com</p>
+          </a>
+          
+          <a href="tel:+919999036455" class="contact-card">
+            <i class="fas fa-phone"></i>
+            <h3>Call Me</h3>
+            <p>+91-9999036455</p>
+          </a>
+          
+          <a href="https://www.linkedin.com/in/sandeep-singh-79b87829/" target="_blank" class="contact-card">
+            <i class="fab fa-linkedin"></i>
+            <h3>LinkedIn</h3>
+            <p>Connect Professionally</p>
+          </a>
+        </div>
+        
+        <div class="hero-buttons" style="justify-content: center; margin-top: 3rem;">
+          <a href="Sandeep-Singh.pdf" class="btn btn-primary" download>
+            <i class="fas fa-download"></i>
+            Download Full Resume
+          </a>
+          <a href="https://github.com/sandy0509187" target="_blank" class="btn btn-secondary">
+            <i class="fab fa-github"></i>
+            View GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/sandeep-singh-79b87829/" target="_blank" class="social-link" title="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://github.com/sandy0509187" target="_blank" class="social-link" title="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://medium.com/@sandeepblue15" target="_blank" class="social-link" title="Medium">
+        <i class="fab fa-medium"></i>
+      </a>
+      <a href="mailto:sandeepblue15@gmail.com" class="social-link" title="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+    <p>&copy; 2025 Sandeep Singh. All rights reserved.</p>
+    <p style="margin-top: 0.5rem; opacity: 0.7;">
+      Lead SRE • Kubernetes Platform Architect • Bengaluru, India
+    </p>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <script>
+    // Generate particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.width = Math.random() * 10 + 5 + 'px';
+      particle.style.height = particle.style.width;
+      particle.style.animationDelay = Math.random() * 15 + 's';
+      particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+      particlesContainer.appendChild(particle);
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Scroll to top button
+    const scrollTop = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollTop.classList.add('visible');
+      } else {
+        scrollTop.classList.remove('visible');
+      }
+    });
+
+    scrollTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.skill-card, .timeline-item, .project-card, .feature-item').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Typing effect
+    const typingText = document.querySelector('.typing-effect');
+    if (typingText) {
+      const text = typingText.textContent;
+      typingText.textContent = '';
+      let i = 0;
+      
+      function typeWriter() {
+        if (i < text.length) {
+          typingText.textContent += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, 50);
+        }
+      }
+      
+      setTimeout(typeWriter, 1000);
+    }
+  </script>
+</body>
+</html>
+
